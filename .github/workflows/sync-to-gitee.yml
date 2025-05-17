@@ -17,7 +17,7 @@ jobs:
 
       - name: Sync to Gitee
         run: |
-          git remote add gitee https://${{ secrets.GITEE_USER }}:${{ secrets.GITEE_TOKEN }}@gitee.com/xy-ylr/FixIt.git
+          git remote add gitee https://${{ secrets.GITEE_USER }}:${{ secrets.GITEE_TOKEN }}@gitee.com/xy-ylr/fixit.git
           git push --mirror gitee
         env:
           TZ: Asia/Shanghai  # 设置时区
