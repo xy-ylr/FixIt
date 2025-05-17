@@ -1,0 +1,23 @@
+name: Sync to Gitee Mirror
+
+on:
+  schedule:
+    - cron: '0 0 1 * *'    # 每月同步一次（UTC时间）
+  push:                    # 当原仓库有更新时自动触发
+  workflow_dispatch:       # 允许手动触发
+
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # 获取完整提交历史
+
+      - name: Sync to Gitee
+        run: |
+          git remote add gitee https://${{ secrets.GITEE_USER }}:${{ secrets.GITEE_TOKEN }}@gitee.com/xy-ylr/FixIt.git
+          git push --mirror gitee
+        env:
+          TZ: Asia/Shanghai  # 设置时区
