@@ -15,17 +15,9 @@ jobs:
         with:
           fetch-depth: 0  # 获取完整提交历史
 
-      - name: Set up Git
-        run: |
-          git config --global user.name "GitHub Actions"
-          git config --global user.email "actions@github.com"
-          echo "gitee.com" >> ~/.git-credentials
-          echo "https://${{ secrets.GITEE_USER }}:${{ secrets.GITEE_TOKEN }}@gitee.com" >> ~/.git-credentials
-          git credential approve
-
       - name: Sync to Gitee
         run: |
-          git remote add gitee https://gitee.com/xy-ylr/fixit.git
+          git remote add gitee https://${{ secrets.GITEE_USER }}:${{ secrets.GITEE_TOKEN }}@gitee.com/xy-ylr/fixit.git
           git push --mirror gitee
         env:
           TZ: Asia/Shanghai  # 设置时区
